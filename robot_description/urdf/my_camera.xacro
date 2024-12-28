@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Camera -->
+    <xacro:macro name="camera_sensor" params="parent_link camera_name origin_xyz origin_rpy">
+        <link name="${camera_name}_link">
+            <visual>
+                <geometry>
+                    <box size="0.05 0.05 0.1"/> 
+                </geometry>
+                <material name="orange"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.05 0.05 0.1"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.01"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+            </inertial>
+        </link>
+
+        <joint name="${parent_link}_${camera_name}_joint" type="fixed">
+            <parent link="${parent_link}"/>
+            <child link="${camera_name}_link"/>
+            <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+        </joint>
+
+    <!-- Camera Sensor Plugin -->
+        <gazebo reference="${camera_name}_link">
+            <sensor type="camera" name="${camera_name}">
+                <update_rate>20</update_rate>
+                <visualize>true</visualize>
+                <camera>
+                    <horizontal_fov>1.3962634</horizontal_fov>
+                    <image>
+                        <width>640</width>
+                        <height>480</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.01</near>
+                        <far>50</far>
+                    </clip>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.007</stddev>
+                    </noise>
+                </camera>
+                <plugin name="gazebo_ros_camera" filename="libgazebo_ros_camera.so">
+                    <always_on>true</always_on>
+                    <update_rate>30.0</update_rate>
+                    <camera_name>${camera_name}</camera_name>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+</robot>

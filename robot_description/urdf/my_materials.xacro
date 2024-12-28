@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Material -->
+    <material name="green">
+        <color rgba="0 1 0 1"/>
+        <gazebo reference="green">
+            <color>0 1 0 1</color>
+        </gazebo>
+    </material>
+  
+    <material name="orange">
+        <color rgba="1 0.5 0 1"/>
+        <gazebo reference="orange">
+            <color>1 0.5 0 1</color>
+        </gazebo>
+    </material>
+  
+    <material name="blue">
+        <color rgba="0 0 1 1"/>
+        <gazebo reference="blue">
+            <color>0 0 1 1</color>
+        </gazebo>
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+        <gazebo reference="white">
+            <color>1 1 1 1</color>
+        </gazebo>
+    </material>
+
+</robot>
